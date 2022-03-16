@@ -7,7 +7,7 @@
     plutus-apps = {
       url = "github:input-output-hk/plutus-apps/1828bcc7762cd6bdcf45ee9e3a7009279cd6b0a7";
       flake = false;
-    }
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
