@@ -2,15 +2,8 @@
   description = "Cardano System";
 
   inputs = {
-    cardano-node-flake.url = "github:input-output-hk/cardano-node";
-    cardano-node-source = {
-      url = "github:input-output-hk/cardano-node";
-      flake = false; 
-    };
-    cardano-wallet-source = {
-      url = "github:input-output-hk/cardano-wallet/";
-      flake = false;
-    };
+    cardano-node.url = "github:input-output-hk/cardano-node";
+    cardano-wallet.url = "github:input-output-hk/cardano-wallet/";
     plutus-chain-index-source.url = "github:input-output-hk/plutus-apps/aa2bf43f61905fabac9fc637cac715086fada29a";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
@@ -18,34 +11,19 @@
   outputs =
     { self
     , nixpkgs
-    , cardano-node-flake
-    , cardano-node-source
-    , cardano-wallet-source
+    , cardano-node
+    , cardano-wallet
     , plutus-chain-index-source
     , ...
     }@inputs: 
-      let cardano-node = cardano-node-flake.outputs.packages.x86_64-linux.cardano-node;
-          cardano-html = (import (cardano-node-source + "/release.nix") {}).cardano-deployment;
-          cardano-wallet = (import cardano-wallet-source {}).cardano-wallet;
+      let cardano-wallet = (import cardano-wallet {}).cardano-wallet;
           plutus-chain-index = (import plutus-chain-index-source {}).plutus-chain-index;
       in {
-        modules = {
-          cardano-node = ./modules/cardano-node.nix;
+        nixosModules = {
+          cardano-node = cardano-node.outputs.nixosModules.cardano-node;
+          cardano-system = ./modules/cardano-system.nix;
           cardano-wallet = ./modules/cardano-wallet.nix;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
-        };
-        defaults = {
-          services.cardano-node = {
-            package = cardano-node;
-            config-file = "${cardano-html}/mainnet-config.json";
-            topology-file = "${cardano-html}/mainnet-topology.json";
-          };
-          services.plutus-chain-index = {
-            package = plutus-chain-index;
-          };
-          services.cardano-wallet = {
-            package = cardano-wallet;
-          };
         };
       };
 }
