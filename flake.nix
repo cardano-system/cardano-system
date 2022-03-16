@@ -29,25 +29,23 @@
           cardano-wallet = (import cardano-wallet-source {}).cardano-wallet;
           plutus-chain-index = (import plutus-chain-index-source {}).plutus-chain-index;
       in {
-         cardano-system = {
-           modules = {
-             cardano-node = ./modules/cardano-node.nix;
-             cardano-wallet = ./modules/cardano-wallet.nix;
-             plutus-chain-index = ./modules/plutus-chain-index.nix;
-           };
-           defaults = {
-             services.cardano-node = {
-               package = cardano-node;
-               config-file = "${cardano-html}/mainnet-config.json";
-               topology-file = "${cardano-html}/mainnet-topology.json";
-             };
-             services.plutus-chain-index = {
-               package = plutus-chain-index;
-             };
-             services.cardano-wallet = {
-               package = cardano-wallet;
-             };
+        modules = {
+          cardano-node = ./modules/cardano-node.nix;
+          cardano-wallet = ./modules/cardano-wallet.nix;
+          plutus-chain-index = ./modules/plutus-chain-index.nix;
+        };
+        defaults = {
+          services.cardano-node = {
+            package = cardano-node;
+            config-file = "${cardano-html}/mainnet-config.json";
+            topology-file = "${cardano-html}/mainnet-topology.json";
           };
+          services.plutus-chain-index = {
+            package = plutus-chain-index;
+          };
+          services.cardano-wallet = {
+            package = cardano-wallet;
+          };
+        };
       };
-   };
 }
