@@ -16,7 +16,7 @@
     , nixpkgs
     , cardano-node
     , cardano-wallet
-    , plutus-chain-index
+    , plutus-apps
     , ...
     }@inputs: 
       let plutus-chain-index = (import plutus-apps {}).plutus-chain-index;
