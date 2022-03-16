@@ -38,7 +38,7 @@
            defaults = {
              services.cardano-node = {
                package = cardano-node;
-               conifg-file = "${cardano-html}/mainnet-config.json";
+               config-file = "${cardano-html}/mainnet-config.json";
                topology-file = "${cardano-html}/mainnet-topology.json";
              };
              services.plutus-chain-index = {
