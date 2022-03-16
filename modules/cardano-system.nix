@@ -8,6 +8,10 @@ with lib;
 
 {
 
+  imports = [
+    inputs.cardano-node
+  ];
+
   options = {
     services.cardano-system = {
       enable = mkOption {

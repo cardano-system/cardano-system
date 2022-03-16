@@ -21,7 +21,7 @@
       in {
         nixosModules = {
           cardano-node = cardano-node.outputs.nixosModules.cardano-node;
-          cardano-system = ./modules/cardano-system.nix;
+          cardano-system = import ./modules/cardano-system.nix { inherit inputs; };
           cardano-wallet = ./modules/cardano-wallet.nix;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
         };
