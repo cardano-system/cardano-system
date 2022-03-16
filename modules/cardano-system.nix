@@ -35,5 +35,11 @@ with lib;
       port = 9082;
       socketPath = cfg.socketPath;
     };
+    services.cardano-wallet = {
+      enable = true;
+      port = 9081;
+      nodeSocket = cfg.socketPath;
+      walletMode = "mainnet";
+    };
   };
 }

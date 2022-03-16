@@ -16,16 +16,15 @@
     , nixpkgs
     , cardano-node
     , cardano-wallet
-    , plutus-chain-index-source
+    , plutus-chain-index
     , ...
     }@inputs: 
-      let cardano-wallet = (import cardano-wallet {}).cardano-wallet;
-          plutus-chain-index = (import plutus-apps {}).plutus-chain-index;
+      let plutus-chain-index = (import plutus-apps {}).plutus-chain-index;
       in {
         nixosModules = {
           cardano-node = cardano-node.outputs.nixosModules.cardano-node;
           cardano-system = ./modules/cardano-system.nix;
-          cardano-wallet = ./modules/cardano-wallet.nix;
+          cardano-wallet = cardano-wallet.outputs.nixosModules.cardano-wallet;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
         };
       };
