@@ -36,7 +36,7 @@ mySystem = {
 is limited to two cores.
 * `cardano-system.defaults` sets the packages for the wallet, node and chain-index, but these
 are overridable.
-* `cardano-system.default` also defaults to the mainnet as this is the primary use case, but
+* `cardano-system.defaults` also defaults to the mainnet as this is the primary use case, but
 this could be used to set up a testnet VM.
 
 Default ports:
