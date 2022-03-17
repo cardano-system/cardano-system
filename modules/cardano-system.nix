@@ -19,7 +19,7 @@ with lib;
       };
       socketPath = mkOption {
         type = types.path;
-        default = "/var/cardano-node/node.sock";
+        default = "/var/lib/cardano-node/node.sock";
         description = ''
           The node socket
         '';
