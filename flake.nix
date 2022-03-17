@@ -3,7 +3,10 @@
 
   inputs = {
     cardano-node.url = "github:input-output-hk/cardano-node";
-    cardano-wallet.url = "github:input-output-hk/cardano-wallet";
+    cardano-wallet = {
+      url ="github:input-output-hk/cardano-wallet";
+      flake = false;
+    };
     plutus-apps = {
       url = "github:input-output-hk/plutus-apps/1828bcc7762cd6bdcf45ee9e3a7009279cd6b0a7";
       flake = false;
@@ -19,12 +22,15 @@
     , plutus-apps
     , ...
     }@inputs: 
-      let plutus-chain-index = (import plutus-apps {}).plutus-chain-index;
+      let cardano-wallet-module = { pkgs, ... }: {
+            imports = ["${cardano-wallet}/nix/nixos/cardano-wallet-service.nix"];
+           };
+           plutus-chain-index = (import plutus-apps {}).plutus-chain-index;
       in {
         nixosModules = {
           cardano-node = cardano-node.outputs.nixosModules.cardano-node;
           cardano-system = ./modules/cardano-system.nix;
-          cardano-wallet = cardano-wallet.outputs.nixosModules.cardano-wallet;
+          cardano-wallet = cardano-wallet-module;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
         };
       };
