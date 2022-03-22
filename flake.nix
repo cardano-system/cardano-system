@@ -8,10 +8,13 @@
       flake = false; 
     };
     cardano-wallet-source = {
-      url = "github:input-output-hk/cardano-wallet/";
+      url = "github:input-output-hk/cardano-wallet";
       flake = false;
     };
-    plutus-chain-index-source.url = "github:input-output-hk/plutus-apps/aa2bf43f61905fabac9fc637cac715086fada29a";
+    plutus-chain-index-source = {
+      url = "github:input-output-hk/plutus-apps";
+      flake = false;
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
