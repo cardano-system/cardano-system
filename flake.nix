@@ -31,11 +31,13 @@
           cardano-html = (import (cardano-node-source + "/release.nix") {}).cardano-deployment;
           cardano-wallet = (import cardano-wallet-source {}).cardano-wallet;
           plutus-chain-index = (import plutus-chain-index-source {}).plutus-chain-index;
+          lib = ./modules/lib.nix;
       in {
         modules = {
           cardano-node = ./modules/cardano-node.nix;
           cardano-wallet = ./modules/cardano-wallet.nix;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
+          lib = lib;
         };
         defaults = {
           services.cardano-node = {
