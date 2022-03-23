@@ -12,7 +12,7 @@
       flake = false;
     };
     plutus-chain-index-source = {
-      url = "github:input-output-hk/plutus-apps";
+      url = "github:input-output-hk/plutus-apps/main";
       flake = false;
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
