@@ -38,7 +38,7 @@ with lib;
       };
       append-batch-size = mkOption {
         type = types.int;
-        default = 15000;
+        default = 1000;
         description = ''
           The --append-batch-size arg
         '';
