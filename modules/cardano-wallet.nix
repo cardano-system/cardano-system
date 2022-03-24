@@ -24,7 +24,7 @@ with lib;
       };
       database-path = mkOption {
         type = types.path;
-        default = "/var/cardano-wallet/";
+        default = "/var/cardano-system/wbe";
         description = ''
           The database store
         '';

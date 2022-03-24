@@ -24,7 +24,7 @@ with lib;
       };
       database-path = mkOption {
         type = types.path;
-        default = "/var/plutus-chain-index/chain-index.db";
+        default = "/var/cardano-system/chain-index/chain-index.db";
         description = ''
           The database store
         '';

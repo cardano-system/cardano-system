@@ -36,14 +36,14 @@ with lib;
       };
       database-path = mkOption {
         type = types.path;
-        default = "/var/cardano-system/";
+        default = "/var/cardano-system/node";
         description = ''
           The database store
         '';
       };
       socket-path = mkOption {
         type = types.path;
-        default = "/var/cardano-system/node.sock";
+        default = "/var/cardano-system/node/node.sock";
         description = ''
           The node socket
         '';
