@@ -43,6 +43,20 @@ with lib;
           The port to run on
         '';
       };
+      user = mkOption {
+        type = types.str;
+        default = config.services.cardano-node.user;
+        description = ''
+          The user to run the systemd service
+        '';
+      };
+      group = mkOption {
+        type = types.str;
+        default = config.services.cardano-node.group;
+        description = ''
+          The group to run the systemd service.
+        '';
+      };
     };
   };
 
@@ -56,6 +70,8 @@ with lib;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/cardano-wallet serve --mainnet --database ${cfg.database-path} --node-socket ${cfg.socket-path} --port ${toString cfg.port}";
         Restart="on-failure";
+        User = cfg.user;
+        Group = cfg.group;
       };
       wantedBy = [ "multi-user.target" ];
     };

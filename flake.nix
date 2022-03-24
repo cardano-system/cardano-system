@@ -37,6 +37,7 @@
           cardano-node = ./modules/cardano-node.nix;
           cardano-wallet = ./modules/cardano-wallet.nix;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
+          cardano-system = ./modules/cardano-system.nix;
           lib = lib;
         };
         defaults = {
