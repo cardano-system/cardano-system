@@ -24,7 +24,7 @@ with lib;
       };
       database-path = mkOption {
         type = types.path;
-        default = "/var/plutus-chain-index/chain-index.db";
+        default = "/var/cardano-system/chain-index/chain-index.db";
         description = ''
           The database store
         '';
@@ -57,6 +57,20 @@ with lib;
           The port to run on
         '';
       };
+      user = mkOption {
+        type = types.str;
+        default = config.services.cardano-node.user;
+        description = ''
+          The user to run the systemd service
+        '';
+      };
+      group = mkOption {
+        type = types.str;
+        default = config.services.cardano-node.group;
+        description = ''
+          The group to run the systemd service.
+        '';
+      };
     };
   };
 
@@ -70,6 +84,8 @@ with lib;
       serviceConfig = {
          ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-queue-size ${toString cfg.append-batch-size} --network-id ${toString cfg.network-id}";
         Restart="on-failure";
+        User = cfg.user;
+        Group = cfg.group;
       };
       wantedBy = [ "multi-user.target" ];
     };

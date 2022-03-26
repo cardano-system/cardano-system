@@ -36,14 +36,14 @@ with lib;
       };
       database-path = mkOption {
         type = types.path;
-        default = "/var/cardano-node/";
+        default = "/var/cardano-system/node";
         description = ''
           The database store
         '';
       };
       socket-path = mkOption {
         type = types.path;
-        default = "/var/cardano-node/node.sock";
+        default = "/var/cardano-system/node/node.sock";
         description = ''
           The node socket
         '';
@@ -54,6 +54,16 @@ with lib;
         description = ''
           The port to run on
         '';
+      };
+      user = mkOption {
+        type = types.str;
+        default = "cardano-system";
+        description = "User to run cardano-node";
+      };
+      group = mkOption {
+        type = types.str;
+        default = "cardano-system";
+        description = "Group to run cardano-node";
       };
     };
   };
@@ -68,6 +78,9 @@ with lib;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/cardano-node +RTS -N -- run --topology ${cfg.topology-file} --config ${cfg.config-file} --database-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port}";
         Restart="on-failure";
+        User = cfg.user;
+        Group = cfg.group;
+        StateDirectory = cfg.database-path;
       };
       wantedBy = [ "multi-user.target" ];
     };
