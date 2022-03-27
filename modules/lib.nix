@@ -8,13 +8,20 @@ let
 
   getWallets = getJSON "${wallet-backend}/v2/wallets";
 
+  createWallet = data: postJSON data "${wallet-backend}/v2/wallets";
+
   getWalletsBin = pkgs.writers.writeBashBin "wallets" getWallets;
+
+  createWalletBin = pkgs.writers.writeBashBin "add-wallet" ''
+    ${createWallet "@$1"}
+  '';
 
 in
 rec {
   config = {
     environment.systemPackages = [
       getWalletsBin
+      createWalletBin
     ];
   };
 }

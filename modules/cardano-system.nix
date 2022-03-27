@@ -19,6 +19,7 @@ in
       "d /var/cardano-system/node                      0770 cardano-system cardano-system - -"
       "d /var/cardano-system/wbe                       0770 cardano-system cardano-system - -"
       "d /var/cardano-system/chain-index               0770 cardano-system cardano-system - -"
+      "f /var/cardano-system/node/node.sock            0770 cardano-system cardano-system - -"
     ];
   };
 }
