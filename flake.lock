@@ -329,11 +329,11 @@
         "utils": "utils_4"
       },
       "locked": {
-        "lastModified": 1647983004,
-        "narHash": "sha256-29kzatjbzREnXoT6Yh89OC82C5qI8eCVZhm4OeSjrgw=",
+        "lastModified": 1648201152,
+        "narHash": "sha256-nRqvS8pvOYhMKaZQdmOoRMVED4ujfjjr/NEOYK9jDkc=",
         "owner": "input-output-hk",
         "repo": "cardano-node",
-        "rev": "ed9932c52aaa535b71f72a5b4cc0cecb3344a5a3",
+        "rev": "9c991b0c610b5a0f2b58e0c381e9ac7c4b11ac78",
         "type": "github"
       },
       "original": {
@@ -408,11 +408,11 @@
     "cardano-node-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1647983004,
-        "narHash": "sha256-29kzatjbzREnXoT6Yh89OC82C5qI8eCVZhm4OeSjrgw=",
+        "lastModified": 1648201152,
+        "narHash": "sha256-nRqvS8pvOYhMKaZQdmOoRMVED4ujfjjr/NEOYK9jDkc=",
         "owner": "input-output-hk",
         "repo": "cardano-node",
-        "rev": "ed9932c52aaa535b71f72a5b4cc0cecb3344a5a3",
+        "rev": "9c991b0c610b5a0f2b58e0c381e9ac7c4b11ac78",
         "type": "github"
       },
       "original": {
@@ -505,11 +505,11 @@
     "cardano-wallet-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1648017222,
-        "narHash": "sha256-ZFdE3u0iJrEwGFeQI21uZ8dZ7AJuiJVLwdqmbu7St0c=",
+        "lastModified": 1648629392,
+        "narHash": "sha256-VwI2aLdAg3kzHun8oudENV3GnSQ0seDWLRBLA8QJ1ag=",
         "owner": "input-output-hk",
         "repo": "cardano-wallet",
-        "rev": "d2fa0c90d23714450aa92e0c06ebc6b2bcdaf18b",
+        "rev": "2bc2fee0105221c97418ea3b7eedfdbdbf547f8c",
         "type": "github"
       },
       "original": {
@@ -1578,11 +1578,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1647800324,
-        "narHash": "sha256-rjwoxrk16zfrcO5Torh6CbAd5GHsHrXw+EwxOvh9AUI=",
+        "lastModified": 1648390671,
+        "narHash": "sha256-u69opCeHUx3CsdIerD0wVSR+DjfDQjnztObqfk9Trqc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9bc841fec1c0e8b9772afa29f934d2c7ce57da8e",
+        "rev": "ce8cbe3c01fd8ee2de526ccd84bbf9b82397a510",
         "type": "github"
       },
       "original": {
@@ -1727,11 +1727,11 @@
     "plutus-chain-index-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1648036874,
-        "narHash": "sha256-GIL9uHQwlyD4qEpwUGlhN9o9blwhElmlKPOPjC3n714=",
+        "lastModified": 1648635956,
+        "narHash": "sha256-qwPhjV07SIahycFpaxqSSOztJLOlmLdgj/TjgVrjkBE=",
         "owner": "input-output-hk",
         "repo": "plutus-apps",
-        "rev": "c9f2601e342a2fc0e2b5870ce656ef434b0efa32",
+        "rev": "b86ee21775422f9c0ca5ff66195014a497575d2d",
         "type": "github"
       },
       "original": {
