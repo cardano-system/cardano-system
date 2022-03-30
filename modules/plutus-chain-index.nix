@@ -36,7 +36,7 @@ with lib;
           The node socket
         '';
       };
-      append-batch-size = mkOption {
+      append-transaction-queue-size = mkOption {
         type = types.int;
         default = 1000;
         description = ''
@@ -82,7 +82,7 @@ with lib;
         Type = "simple";
       };
       serviceConfig = {
-         ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-queue-size ${toString cfg.append-batch-size} --network-id ${toString cfg.network-id}";
+         ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-transaction-queue-size ${toString cfg.append-transaction-queue-size} --network-id ${toString cfg.network-id}";
         Restart="on-failure";
         User = cfg.user;
         Group = cfg.group;
