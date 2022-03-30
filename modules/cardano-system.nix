@@ -10,7 +10,7 @@ with lib;
     services.cardano-system = {
       enable = mkOption {
         default = false;
-        types = types.bool;
+        type = types.bool;
       };
     };
   };
