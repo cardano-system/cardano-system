@@ -1,10 +1,22 @@
 { pkgs, config, ... }:
 
-let cardano-system = config.services.cardano-system;
+let cfg = config.services.cardano-system;
 
 in
 {
-  config = {
+  options = {
+    services.cardano-system = {
+      enable = mkOption {
+        default = false;
+        types = types.bool;
+      };
+    };
+  };
+
+  config = mkIf cfg.enable {
+    services.plutus-chain-index.enable = true; 
+    services.cardano-wallet.enable = true; 
+    services.cardano-node.enable = true; 
     users = {
       groups.cardano-system.gid = 8020;
       users.cardano-system =
