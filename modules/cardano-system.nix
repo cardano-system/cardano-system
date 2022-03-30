@@ -1,8 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let cfg = config.services.cardano-system;
 
 in
+
+with lib;
 {
   options = {
     services.cardano-system = {
