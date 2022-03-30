@@ -27,12 +27,14 @@ with lib;
         description = ''
           The json config file.
         '';
+        default = "${inputs.cardano-html}/mainnet-config.json";
       };
       topology-file = mkOption {
         type = types.path;
         description = ''
           The json topology file.
         '';
+        default = "${inputs.cardano-html}/mainnet-topology.json";
       };
       database-path = mkOption {
         type = types.path;

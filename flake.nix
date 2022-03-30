@@ -5,7 +5,7 @@
     cardano-node-flake.url = "github:input-output-hk/cardano-node";
     cardano-node-source = {
       url = "github:input-output-hk/cardano-node";
-      flake = false; 
+      flake = false;
     };
     cardano-wallet-source = {
       url = "github:input-output-hk/cardano-wallet";
@@ -26,32 +26,34 @@
     , cardano-wallet-source
     , plutus-chain-index-source
     , ...
-    }@inputs: 
-      let cardano-node = cardano-node-flake.outputs.packages.x86_64-linux.cardano-node;
-          cardano-html = (import (cardano-node-source + "/release.nix") {}).cardano-deployment;
-          cardano-wallet = (import cardano-wallet-source {}).cardano-wallet;
-          plutus-chain-index = (import plutus-chain-index-source {}).plutus-chain-index;
-          lib = ./modules/lib.nix;
-      in {
-        modules = {
-          cardano-node = ./modules/cardano-node.nix;
-          cardano-wallet = ./modules/cardano-wallet.nix;
-          plutus-chain-index = ./modules/plutus-chain-index.nix;
-          cardano-system = ./modules/cardano-system.nix;
-          lib = lib;
+    }@inputs:
+    let
+      cardano-node = cardano-node-flake.outputs.packages.x86_64-linux.cardano-node;
+      cardano-html = (import (cardano-node-source + "/release.nix") { }).cardano-deployment;
+      cardano-wallet = (import cardano-wallet-source { }).cardano-wallet;
+      plutus-chain-index = (import plutus-chain-index-source { }).plutus-chain-index;
+      lib = ./modules/lib.nix;
+    in
+    {
+      nixosModules = {
+        cardano-node = ./modules/cardano-node.nix;
+        cardano-wallet = ./modules/cardano-wallet.nix;
+        plutus-chain-index = ./modules/plutus-chain-index.nix;
+        cardano-system = ./modules/cardano-system.nix;
+        lib = lib;
+      };
+      defaults = {
+        services.cardano-node = {
+          package = cardano-node;
+          config-file = "${cardano-html}/mainnet-config.json";
+          topology-file = "${cardano-html}/mainnet-topology.json";
         };
-        defaults = {
-          services.cardano-node = {
-            package = cardano-node;
-            config-file = "${cardano-html}/mainnet-config.json";
-            topology-file = "${cardano-html}/mainnet-topology.json";
-          };
-          services.plutus-chain-index = {
-            package = plutus-chain-index;
-          };
-          services.cardano-wallet = {
-            package = cardano-wallet;
-          };
+        services.plutus-chain-index = {
+          package = plutus-chain-index;
+        };
+        services.cardano-wallet = {
+          package = cardano-wallet;
         };
       };
+    };
 }
