@@ -5,7 +5,7 @@
     cardano-node-flake.url = "github:input-output-hk/cardano-node";
     cardano-node-source = {
       url = "github:input-output-hk/cardano-node";
-      flake = false; 
+      flake = false;
     };
     cardano-wallet-source = {
       url = "github:input-output-hk/cardano-wallet";
@@ -40,18 +40,18 @@
           cardano-system = ./modules/cardano-system.nix;
           lib = lib;
         };
-        defaults = {
-          services.cardano-node = {
-            package = cardano-node;
-            config-file = "${cardano-html}/mainnet-config.json";
-            topology-file = "${cardano-html}/mainnet-topology.json";
-          };
-          services.plutus-chain-index = {
-            package = plutus-chain-index;
-          };
-          services.cardano-wallet = {
-            package = cardano-wallet;
-          };
+      defaults = {
+        services.cardano-node = {
+          package = cardano-node;
+          config-file = "${cardano-html}/mainnet-config.json";
+          topology-file = "${cardano-html}/mainnet-topology.json";
+        };
+        services.plutus-chain-index = {
+          package = plutus-chain-index;
+        };
+        services.cardano-wallet = {
+          package = cardano-wallet;
         };
       };
+    };
 }

@@ -1,10 +1,24 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
-let cardano-system = config.services.cardano-system;
+let cfg = config.services.cardano-system;
 
 in
+
+with lib;
 {
-  config = {
+  options = {
+    services.cardano-system = {
+      enable = mkOption {
+        default = false;
+        type = types.bool;
+      };
+    };
+  };
+
+  config = mkIf cfg.enable {
+    services.plutus-chain-index.enable = true; 
+    services.cardano-wallet.enable = true; 
+    services.cardano-node.enable = true; 
     users = {
       groups.cardano-system.gid = 8020;
       users.cardano-system =
@@ -19,7 +33,6 @@ in
       "d /var/cardano-system/node                      0770 cardano-system cardano-system - -"
       "d /var/cardano-system/wbe                       0770 cardano-system cardano-system - -"
       "d /var/cardano-system/chain-index               0770 cardano-system cardano-system - -"
-      "f /var/cardano-system/node/node.sock            0770 cardano-system cardano-system - -"
     ];
   };
 }
