@@ -21,11 +21,10 @@ mySystem = {
      cardano-system.nixosModules.cardano-node
      cardano-system.nixosModules.cardano-wallet
      cardano-system.nixosModules.plutus-chain-index
+     cardano-system.nixosModules.lib
      cardano-system.defaults
      {
-       services.cardano-node.enable = true;
-       services.plutus-chain-index.enable = true;
-       services.cardano-wallet.enable = true;
+       services.cardano-system.enable = true;
      }
    ]
 ```
