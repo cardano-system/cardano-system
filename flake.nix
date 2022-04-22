@@ -42,5 +42,19 @@
           mainnet-config = "${inputs.cardano-node-flake}/configuration/cardano/mainnet-config.json";
         };
       };
+      checks.x86_64-linux =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          system = pkgs.hostPlatform.system;
+          vmTests = import ./tests {
+            makeTest = (import (nixpkgs + "/nixos/lib/testing-python.nix") { inherit system; }).makeTest;
+            inherit pkgs inputs;
+          };
+        in
+        pkgs.lib.optionalAttrs pkgs.stdenv.isLinux vmTests # vmTests can only be ran on Linux, so append them only if on Linux.
+        //
+        {
+          # Other checks here...
+        };
     };
 }
