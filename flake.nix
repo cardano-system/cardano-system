@@ -3,18 +3,8 @@
 
   inputs = {
     cardano-node-flake.url = "github:input-output-hk/cardano-node";
-    cardano-node-source = {
-      url = "github:input-output-hk/cardano-node";
-      flake = false;
-    };
-    cardano-wallet-source = {
-      url = "github:input-output-hk/cardano-wallet";
-      flake = false;
-    };
-    plutus-chain-index-source = {
-      url = "github:input-output-hk/plutus-apps/main";
-      flake = false;
-    };
+    cardano-wallet-flake.url = "github:input-output-hk/cardano-wallet";
+    plutus-apps-flake.url = "github:input-output-hk/plutus-apps/main";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
@@ -22,29 +12,26 @@
     { self
     , nixpkgs
     , cardano-node-flake
-    , cardano-node-source
-    , cardano-wallet-source
-    , plutus-chain-index-source
+    , cardano-wallet-flake
+    , plutus-apps-flake
     , ...
     }@inputs: 
       let cardano-node = cardano-node-flake.outputs.packages.x86_64-linux.cardano-node;
-          cardano-html = (import (cardano-node-source + "/release.nix") {}).cardano-deployment;
-          cardano-wallet = (import cardano-wallet-source {}).cardano-wallet;
-          plutus-chain-index = (import plutus-chain-index-source {}).plutus-chain-index;
-          lib = ./modules/lib.nix;
+          cardano-wallet = cardano-wallet-flake.outputs.packages.x86_64-linux.cardano-wallet;
+          plutus-chain-index = plutus-apps-flake.outputs.legacyPackages.x86_64-linux.plutus-chain-index;
       in {
         nixosModules = {
           cardano-node = ./modules/cardano-node.nix;
           cardano-wallet = ./modules/cardano-wallet.nix;
           plutus-chain-index = ./modules/plutus-chain-index.nix;
           cardano-system = ./modules/cardano-system.nix;
-          lib = lib;
+          lib = ./modules/lib.nix;
         };
       defaults = {
         services.cardano-node = {
           package = cardano-node;
-          config-file = "${cardano-html}/mainnet-config.json";
-          topology-file = "${cardano-html}/mainnet-topology.json";
+          config-file = "${cardano-node-flake}/configuration/mainnet-config.json";
+          topology-file = "${cardano-node-flake}/configuration/mainnet-topology.json";
         };
         services.plutus-chain-index = {
           package = plutus-chain-index;
