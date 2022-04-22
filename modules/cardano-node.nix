@@ -1,4 +1,4 @@
-{config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, inputs, ... }:
 
 let cfg = config.services.cardano-node;
 
@@ -79,7 +79,7 @@ with lib;
       };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/cardano-node +RTS -N -- run --topology ${cfg.topology-file} --config ${cfg.config-file} --database-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port}";
-        Restart="on-failure";
+        Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
         StateDirectory = cfg.database-path;

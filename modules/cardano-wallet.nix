@@ -1,4 +1,4 @@
-{config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, inputs, ... }:
 
 let cfg = config.services.cardano-wallet;
 
@@ -69,7 +69,7 @@ with lib;
       };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/cardano-wallet serve --mainnet --database ${cfg.database-path} --node-socket ${cfg.socket-path} --port ${toString cfg.port}";
-        Restart="on-failure";
+        Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
       };

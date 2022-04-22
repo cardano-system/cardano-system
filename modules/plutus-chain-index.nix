@@ -1,4 +1,4 @@
-{config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, inputs, ... }:
 
 let cfg = config.services.plutus-chain-index;
 
@@ -49,7 +49,7 @@ with lib;
         description = ''
           Magic network id
         '';
-      }; 
+      };
       port = mkOption {
         type = types.port;
         default = 9083;
@@ -82,8 +82,8 @@ with lib;
         Type = "simple";
       };
       serviceConfig = {
-         ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-transaction-queue-size ${toString cfg.append-transaction-queue-size} --network-id ${toString cfg.network-id}";
-        Restart="on-failure";
+        ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-transaction-queue-size ${toString cfg.append-transaction-queue-size} --network-id ${toString cfg.network-id}";
+        Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
       };
