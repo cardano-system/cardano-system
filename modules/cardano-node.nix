@@ -18,6 +18,7 @@ with lib;
       };
       package = mkOption {
         type = types.package;
+        default = pkgs.cardano-system.cardano-node;
         description = ''
           The cardano-node package to use.
         '';
@@ -27,14 +28,14 @@ with lib;
         description = ''
           The json config file.
         '';
-        default = "${inputs.cardano-html}/mainnet-config.json";
+        default = pkgs.cardano-system.mainnet-config;
       };
       topology-file = mkOption {
         type = types.path;
         description = ''
           The json topology file.
         '';
-        default = "${inputs.cardano-html}/mainnet-topology.json";
+        default = pkgs.cardano-system.mainnet-topology;
       };
       database-path = mkOption {
         type = types.path;

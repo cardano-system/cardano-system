@@ -29,17 +29,6 @@
         cardano-system = ./modules/cardano-system.nix;
         lib = ./modules/lib.nix;
       };
-      defaults = {
-        services.cardano-node = {
-          package = cardano-node;
-          config-file = "${cardano-node-flake}/configuration/mainnet-config.json";
-          topology-file = "${cardano-node-flake}/configuration/mainnet-topology.json";
-        };
-        services.plutus-chain-index = {
-          package = plutus-chain-index;
-        };
-        services.cardano-wallet = {
-          package = cardano-wallet;
         };
       };
     };

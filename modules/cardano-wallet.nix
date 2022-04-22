@@ -18,6 +18,7 @@ with lib;
       };
       package = mkOption {
         type = types.package;
+        default = pkgs.cardano-system.cardano-wallet;
         description = ''
           The cardano-wallet package to use.
         '';

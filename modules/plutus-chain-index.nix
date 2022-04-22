@@ -18,6 +18,7 @@ with lib;
       };
       package = mkOption {
         type = types.package;
+        default = pkgs.cardano-system.plutus-chain-index;
         description = ''
           The plutus-chain-index package to use
         '';
