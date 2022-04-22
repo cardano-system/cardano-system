@@ -1669,22 +1669,6 @@
         "type": "github"
       }
     },
-    "cardano-node-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1650542986,
-        "narHash": "sha256-kE3G4lJuZ+NHBk8ySaG5cL57ywm6eP/eWBUfXueNoZo=",
-        "owner": "input-output-hk",
-        "repo": "cardano-node",
-        "rev": "902fc77dee9e0f40c36e2c8b905dc8d5c51e97d9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "input-output-hk",
-        "repo": "cardano-node",
-        "type": "github"
-      }
-    },
     "cardano-node-workbench": {
       "inputs": {
         "cardano-node-workbench": "cardano-node-workbench_2",
@@ -9115,7 +9099,6 @@
     "root": {
       "inputs": {
         "cardano-node-flake": "cardano-node-flake",
-        "cardano-node-source": "cardano-node-source",
         "cardano-wallet-flake": "cardano-wallet-flake",
         "nixpkgs": "nixpkgs_22",
         "plutus-apps-flake": "plutus-apps-flake"
