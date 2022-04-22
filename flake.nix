@@ -16,9 +16,9 @@
     , plutus-apps-flake
     , ...
     }@inputs: 
-      let cardano-node = cardano-node-flake.outputs.packages.x86_64-linux.cardano-node;
-          cardano-wallet = cardano-wallet-flake.outputs.packages.x86_64-linux.cardano-wallet;
-          plutus-chain-index = plutus-apps-flake.outputs.legacyPackages.x86_64-linux.plutus-chain-index;
+      let cardano-node = cardano-node-flake.packages.x86_64-linux.cardano-node;
+          cardano-wallet = cardano-wallet-flake.packages.x86_64-linux.cardano-wallet;
+          plutus-chain-index = plutus-apps-flake.legacyPackages.x86_64-linux.plutus-chain-index;
       in {
         nixosModules = {
           cardano-node = ./modules/cardano-node.nix;
