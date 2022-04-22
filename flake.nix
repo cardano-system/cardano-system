@@ -22,7 +22,7 @@
       plutus-chain-index = plutus-apps-flake.legacyPackages.x86_64-linux.plutus-chain-index;
     in
     {
-      nixosModules = {
+      nixosModules.x86_64-linux = {
         cardano-node = ./modules/cardano-node.nix;
         cardano-wallet = ./modules/cardano-wallet.nix;
         plutus-chain-index = ./modules/plutus-chain-index.nix;
