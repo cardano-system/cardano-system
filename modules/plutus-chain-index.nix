@@ -78,6 +78,7 @@ with lib;
   config = mkIf cfg.enable {
     systemd.services.plutus-chain-index = {
       enable = true;
+      after = [ "cardano-node.service" ];
       description = "Plutus Chain Index";
       unitConfig = {
         Type = "simple";

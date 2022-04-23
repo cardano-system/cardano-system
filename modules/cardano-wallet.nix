@@ -63,6 +63,7 @@ with lib;
 
   config = mkIf cfg.enable {
     systemd.services.cardano-wallet = {
+      after = [ "cardano-node.service" ];
       enable = true;
       description = "Cardano Wallet";
       unitConfig = {
