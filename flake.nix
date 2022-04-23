@@ -15,30 +15,46 @@
     , cardano-wallet-flake
     , plutus-apps-flake
     , ...
-    }@inputs: 
-      let cardano-node = cardano-node-flake.outputs.packages.x86_64-linux.cardano-node;
-          cardano-wallet = cardano-wallet-flake.outputs.packages.x86_64-linux.cardano-wallet;
-          plutus-chain-index = plutus-apps-flake.outputs.legacyPackages.x86_64-linux.plutus-chain-index;
-      in {
-        nixosModules = {
-          cardano-node = ./modules/cardano-node.nix;
-          cardano-wallet = ./modules/cardano-wallet.nix;
-          plutus-chain-index = ./modules/plutus-chain-index.nix;
-          cardano-system = ./modules/cardano-system.nix;
-          lib = ./modules/lib.nix;
+    }@inputs:
+    {
+      nixosModules.x86_64-linux = {
+        cardano-node = { pkgs, lib, config, ... }: {
+          imports = [ ./modules/cardano-node.nix ];
+          nixpkgs.overlays = [ inputs.self.overlays.default ];
         };
-      defaults = {
-        services.cardano-node = {
-          package = cardano-node;
-          config-file = "${cardano-node-flake}/configuration/mainnet-config.json";
-          topology-file = "${cardano-node-flake}/configuration/mainnet-topology.json";
+        cardano-wallet = { pkgs, lib, config, ... }: {
+          imports = [ ./modules/cardano-wallet.nix ];
+          nixpkgs.overlays = [ inputs.self.overlays.default ];
         };
-        services.plutus-chain-index = {
-          package = plutus-chain-index;
+        cardano-system = ./modules/cardano-system.nix;
+        plutus-chain-index = { pkgs, lib, config, ... }: {
+          imports = [ ./modules/plutus-chain-index.nix ];
+          nixpkgs.overlays = [ inputs.self.overlays.default ];
         };
-        services.cardano-wallet = {
-          package = cardano-wallet;
+        lib = ./modules/lib.nix;
+      };
+      overlays.default = final: prev: {
+        cardano-system = {
+          cardano-node = cardano-node-flake.packages.${final.hostPlatform.system}.cardano-node;
+          cardano-wallet = cardano-wallet-flake.packages.${final.hostPlatform.system}.cardano-wallet;
+          plutus-chain-index = plutus-apps-flake.legacyPackages.${final.hostPlatform.system}.plutus-chain-index;
+          mainnet-topology = "${inputs.cardano-node-flake}/configuration/cardano/mainnet-topology.json";
+          mainnet-config = "${inputs.cardano-node-flake}/configuration/cardano/mainnet-config.json";
         };
       };
+      checks.x86_64-linux =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          system = pkgs.hostPlatform.system;
+          vmTests = import ./tests {
+            makeTest = (import (nixpkgs + "/nixos/lib/testing-python.nix") { inherit system; }).makeTest;
+            inherit pkgs inputs;
+          };
+        in
+        pkgs.lib.optionalAttrs pkgs.stdenv.isLinux vmTests # vmTests can only be ran on Linux, so append them only if on Linux.
+        //
+        {
+          # Other checks here...
+        };
     };
 }

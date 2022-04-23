@@ -16,13 +16,14 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    services.plutus-chain-index.enable = true; 
-    services.cardano-wallet.enable = true; 
-    services.cardano-node.enable = true; 
+    services.plutus-chain-index.enable = true;
+    services.cardano-wallet.enable = true;
+    services.cardano-node.enable = true;
     users = {
       groups.cardano-system.gid = 8020;
       users.cardano-system =
-        { group = "cardano-system";
+        {
+          group = "cardano-system";
           shell = "${pkgs.bash}/bin/bash";
           uid = 8020;
           isSystemUser = true;

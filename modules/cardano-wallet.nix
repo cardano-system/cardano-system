@@ -1,4 +1,4 @@
-{config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, ... }:
 
 let cfg = config.services.cardano-wallet;
 
@@ -18,6 +18,7 @@ with lib;
       };
       package = mkOption {
         type = types.package;
+        default = pkgs.cardano-system.cardano-wallet;
         description = ''
           The cardano-wallet package to use.
         '';
@@ -62,6 +63,7 @@ with lib;
 
   config = mkIf cfg.enable {
     systemd.services.cardano-wallet = {
+      after = [ "cardano-node.service" ];
       enable = true;
       description = "Cardano Wallet";
       unitConfig = {
@@ -69,7 +71,7 @@ with lib;
       };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/cardano-wallet serve --mainnet --database ${cfg.database-path} --node-socket ${cfg.socket-path} --port ${toString cfg.port}";
-        Restart="on-failure";
+        Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
       };

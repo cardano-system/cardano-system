@@ -1,4 +1,4 @@
-{config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, ... }:
 
 let cfg = config.services.cardano-node;
 
@@ -18,6 +18,7 @@ with lib;
       };
       package = mkOption {
         type = types.package;
+        default = pkgs.cardano-system.cardano-node;
         description = ''
           The cardano-node package to use.
         '';
@@ -27,14 +28,14 @@ with lib;
         description = ''
           The json config file.
         '';
-        default = "${inputs.cardano-html}/mainnet-config.json";
+        default = pkgs.cardano-system.mainnet-config;
       };
       topology-file = mkOption {
         type = types.path;
         description = ''
           The json topology file.
         '';
-        default = "${inputs.cardano-html}/mainnet-topology.json";
+        default = pkgs.cardano-system.mainnet-topology;
       };
       database-path = mkOption {
         type = types.path;
@@ -79,7 +80,7 @@ with lib;
       };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/cardano-node +RTS -N -- run --topology ${cfg.topology-file} --config ${cfg.config-file} --database-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port}";
-        Restart="on-failure";
+        Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
         StateDirectory = cfg.database-path;

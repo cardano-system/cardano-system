@@ -1,4 +1,4 @@
-{config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, ... }:
 
 let cfg = config.services.plutus-chain-index;
 
@@ -18,6 +18,7 @@ with lib;
       };
       package = mkOption {
         type = types.package;
+        default = pkgs.cardano-system.plutus-chain-index;
         description = ''
           The plutus-chain-index package to use
         '';
@@ -49,7 +50,7 @@ with lib;
         description = ''
           Magic network id
         '';
-      }; 
+      };
       port = mkOption {
         type = types.port;
         default = 9083;
@@ -77,13 +78,14 @@ with lib;
   config = mkIf cfg.enable {
     systemd.services.plutus-chain-index = {
       enable = true;
+      after = [ "cardano-node.service" ];
       description = "Plutus Chain Index";
       unitConfig = {
         Type = "simple";
       };
       serviceConfig = {
-         ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-transaction-queue-size ${toString cfg.append-transaction-queue-size} --network-id ${toString cfg.network-id}";
-        Restart="on-failure";
+        ExecStart = "${cfg.package}/bin/plutus-chain-index start-index  --db-path ${cfg.database-path} --socket-path ${cfg.socket-path} --port ${toString cfg.port} --append-transaction-queue-size ${toString cfg.append-transaction-queue-size} --network-id ${toString cfg.network-id}";
+        Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
       };
