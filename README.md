@@ -25,6 +25,7 @@ mySystem = {
      cardano-system.nixosModules.lib
      {
        services.cardano-system.enable = true;
+       services.cardano-system.library.enable = true;
      }
    ]
 ```
