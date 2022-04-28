@@ -34,10 +34,7 @@ mySystem = {
 
 * The cardano-node is run with `+RTS -N`, where as the cardano-node in daedalus
 is limited to two cores.
-* `cardano-system.defaults` sets the packages for the wallet, node and chain-index, but these
-are overridable.
-* `cardano-system.defaults` also defaults to the mainnet as this is the primary use case, but
-this could be used to set up a testnet VM.
+* Everything currently defaults to the mainnet, but this is overridable.
 
 Default ports:
   * cardano-wallet: 9081
