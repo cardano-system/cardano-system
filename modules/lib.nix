@@ -1,5 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
+  cfg = config.services.cardano-system.library;
+
   wallet-backend = "http://localhost:${toString config.services.cardano-wallet.port}";
 
   postJSON = data: url: "${pkgs.curl}/bin/curl -H \"Content-Type: application/json\" -X POST -d ${data} ${url}";
@@ -17,8 +19,20 @@ let
   '';
 
 in
+
+with lib;
+
 rec {
-  config = {
+  options = {
+    services.cardano-system.library = {
+      enable = mkOption {
+        default = false;
+        type = types.bool;
+      };
+    };
+  };
+
+  config = mkIf cfg.enable {
     environment.systemPackages = [
       getWalletsBin
       createWalletBin

@@ -23,9 +23,9 @@ mySystem = {
      cardano-system.nixosModules.plutus-chain-index
      cardano-system.nixosModules.cardano-system
      cardano-system.nixosModules.lib
-     cardano-system.defaults
      {
        services.cardano-system.enable = true;
+       services.cardano-system.library.enable = true;
      }
    ]
 ```

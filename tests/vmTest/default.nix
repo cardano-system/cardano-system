@@ -10,6 +10,7 @@ makeTest {
         inputs.self.nixosModules.${pkgs.hostPlatform.system}.lib
       ];
       services.cardano-system.enable = true;
+      services.cardano-system.library.enable = true;
     };
   };
   testScript = { nodes, ... }: ''
