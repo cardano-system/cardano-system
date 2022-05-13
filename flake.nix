@@ -40,7 +40,10 @@
           imports = [ ./modules/plutus-chain-index.nix ];
           nixpkgs.overlays = [ inputs.self.overlays.default ];
         };
-        lib = ./modules/lib.nix;
+        lib = { pkgs, lib, config, ... }: {
+          imports = [ ./modules/lib.nix ];
+          nixpkgs.overlays = [ inputs.self.overlays.default ];
+        };
       };
       overlays.default = final: prev: {
         cardano-system = {
@@ -49,6 +52,26 @@
           plutus-chain-index = plutus-apps-flake.legacyPackages.${final.hostPlatform.system}.plutus-chain-index;
           mainnet-topology = "${inputs.cardano-node-flake}/configuration/cardano/mainnet-topology.json";
           mainnet-config = "${inputs.cardano-node-flake}/configuration/cardano/mainnet-config.json";
+          testnet-topology = "${inputs.cardano-node-flake}/configuration/cardano/testnet-topology.json";
+          testnet-config = "${inputs.cardano-node-flake}/configuration/cardano/testnet-config.json";
+          mainnet-byron-genesis = "${inputs.cardano-node-flake}/configuration/cardano/mainnet-byron-genesis.json";
+          testnet-byron-genesis = "${inputs.cardano-node-flake}/configuration/cardano/testnet-byron-genesis.json";
+          networks = {
+            mainnet = {
+              name = "mainnet";
+              topology = final.cardano-system.mainnet-topology;
+              config = final.cardano-system.mainnet-config;
+              id = 764824073;
+              genesis = final.cardano-system.mainnet-byron-genesis;
+            };
+            testnet = {
+              name = "testnet";
+              topology = final.cardano-system.testnet-topology;
+              config = final.cardano-system.testnet-config;
+              id = 1097911063;
+              genesis = final.cardano-system.testnet-byron-genesis;
+            };
+          };
         };
       };
       checks.x86_64-linux =

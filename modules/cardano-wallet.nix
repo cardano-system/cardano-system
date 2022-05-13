@@ -37,6 +37,13 @@ with lib;
           The node socket
         '';
       };
+      byron-genesis-path = mkOption {
+        type = types.path;
+        default = pkgs.cardano-system.mainnet-byron-genesis;
+        description = ''
+           Path to the genesis file
+        '';
+      };
       port = mkOption {
         type = types.port;
         default = 9081;
@@ -70,7 +77,7 @@ with lib;
         Type = "simple";
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/cardano-wallet serve --mainnet --database ${cfg.database-path} --node-socket ${cfg.socket-path} --port ${toString cfg.port}";
+        ExecStart = "${cfg.package}/bin/cardano-wallet serve --database ${cfg.database-path} --node-socket ${cfg.socket-path} --port ${toString cfg.port} --testnet ${cfg.byron-genesis-path}";
         Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
