@@ -18,11 +18,7 @@ inputs = {
 mySystem = {
    system = "x86_64-linux";
    modules = [
-     cardano-system.nixosModules.cardano-node
-     cardano-system.nixosModules.cardano-wallet
-     cardano-system.nixosModules.plutus-chain-index
-     cardano-system.nixosModules.cardano-system
-     cardano-system.nixosModules.lib
+     cardano-system.nixosModule.x86_64-linux
      {
        services.cardano-system.enable = true;
        services.cardano-system.library.enable = true;

@@ -17,6 +17,15 @@
     , ...
     }@inputs:
     {
+      nixosModule.x86_64-linux = {
+        imports = [
+          self.nixosModules.x86_64-linux.cardano-node
+          self.nixosModules.x86_64-linux.cardano-wallet
+          self.nixosModules.x86_64-linux.cardano-system
+          self.nixosModules.x86_64-linux.plutus-chain-index
+          self.nixosModules.x86_64-linux.lib
+        ];
+      };
       nixosModules.x86_64-linux = {
         cardano-node = { pkgs, lib, config, ... }: {
           imports = [ ./modules/cardano-node.nix ];
