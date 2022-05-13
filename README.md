@@ -26,6 +26,12 @@ mySystem = {
    ]
 ```
 
+If you want to switch to the testnet, do
+
+```
+services.cardano-system.network = pkgs.cardano-system.networks.testnet;
+```
+
 ## Notes
 
 * The cardano-node is run with `+RTS -N`, where as the cardano-node in daedalus
