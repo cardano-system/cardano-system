@@ -47,6 +47,7 @@
       };
       overlays.default = final: prev: {
         cardano-system = {
+          cardano-cli = cardano-node-flake.packages.${final.hostPlatform.system}.cardano-cli;
           cardano-node = cardano-node-flake.packages.${final.hostPlatform.system}.cardano-node;
           cardano-wallet = cardano-wallet-flake.packages.${final.hostPlatform.system}.cardano-wallet;
           plutus-chain-index = plutus-apps-flake.legacyPackages.${final.hostPlatform.system}.plutus-chain-index;
