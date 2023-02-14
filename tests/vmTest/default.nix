@@ -15,8 +15,8 @@ makeTest {
   };
   testScript = { nodes, ... }: ''
     cardanoSystem.wait_for_file("${toString nodes.cardanoSystem.config.services.cardano-node.socket-path}")
-    cardanoSystem.wait_for_open_port("${toString nodes.cardanoSystem.config.services.cardano-node.port}")
-    cardanoSystem.wait_for_open_port("${toString nodes.cardanoSystem.config.services.plutus-chain-index.port}")
-    cardanoSystem.wait_for_open_port("${toString nodes.cardanoSystem.config.services.cardano-wallet.port}")
+    cardanoSystem.wait_for_open_port(${toString nodes.cardanoSystem.config.services.cardano-node.port})
+    cardanoSystem.wait_for_open_port(${toString nodes.cardanoSystem.config.services.plutus-chain-index.port})
+    cardanoSystem.wait_for_open_port(${toString nodes.cardanoSystem.config.services.cardano-wallet.port})
   '';
 }
